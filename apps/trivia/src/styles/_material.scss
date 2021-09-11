@@ -1,0 +1,59 @@
+@use '~@angular/material' as mat;
+
+@use './palettes' as palettes;
+@use './typography' as typography;
+
+@include mat.core();
+
+$my-light-theme: mat.define-light-theme(
+	(
+		color: (
+			primary: palettes.$light-primary,
+			accent: palettes.$light-accent,
+			warn: palettes.$light-warn,
+		),
+		typography: typography.$my-typography,
+	)
+);
+
+$my-dark-theme: mat.define-dark-theme(
+	(
+		color: (
+			primary: palettes.$light-primary,
+			accent: palettes.$light-accent,
+			warn: palettes.$light-warn,
+		),
+		typography: typography.$my-typography,
+	)
+);
+
+@include mat.core-theme($my-light-theme);
+@include mat.typography-hierarchy($my-light-theme);
+
+@include mat.button-theme($my-light-theme);
+@include mat.card-theme($my-light-theme);
+@include mat.form-field-theme($my-light-theme);
+@include mat.icon-theme($my-light-theme);
+@include mat.input-theme($my-light-theme);
+@include mat.list-theme($my-light-theme);
+@include mat.menu-theme($my-light-theme);
+@include mat.sidenav-theme($my-light-theme);
+@include mat.toolbar-theme($my-light-theme);
+
+.dark {
+	@include mat.core-color($my-dark-theme);
+
+	@include mat.button-color($my-dark-theme);
+	@include mat.card-color($my-dark-theme);
+	@include mat.form-field-color($my-dark-theme);
+	@include mat.icon-color($my-dark-theme);
+	@include mat.input-color($my-dark-theme);
+	@include mat.list-color($my-dark-theme);
+	@include mat.menu-color($my-dark-theme);
+	@include mat.sidenav-color($my-dark-theme);
+	@include mat.toolbar-color($my-dark-theme);
+}
+
+.mat-card-image {
+	max-width: initial;
+}

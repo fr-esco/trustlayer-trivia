@@ -1,0 +1,90 @@
+@use '~@angular/material' as mat;
+
+// node_modules/@angular/material/core/theming/_palette.scss:29:1
+$dark-primary-text: rgba(black, 0.87);
+$dark-secondary-text: rgba(black, 0.54);
+$dark-disabled-text: rgba(black, 0.38);
+$dark-dividers: rgba(black, 0.12);
+$dark-focused: rgba(black, 0.12);
+$light-primary-text: white;
+$light-secondary-text: rgba(white, 0.7);
+$light-disabled-text: rgba(white, 0.5);
+$light-dividers: rgba(white, 0.12);
+$light-focused: rgba(white, 0.12);
+
+// https://materialtheme.arcsine.dev/
+$mat-primary: (
+	main: #00afea,
+	lighter: #b3e7f9,
+	darker: #0096e1,
+	200: #00afea,
+	// For slide toggle,
+	contrast:
+		(
+			main: $light-primary-text,
+			lighter: $dark-primary-text,
+			darker: $light-primary-text,
+		),
+);
+$mat-accent: (
+	main: #0071bc,
+	lighter: #b3d4eb,
+	darker: #0054a5,
+	200: #0071bc,
+	// For slide toggle,
+	contrast:
+		(
+			main: $light-primary-text,
+			lighter: $dark-primary-text,
+			darker: $light-primary-text,
+		),
+);
+$mat-warn: (
+	main: #f01e46,
+	lighter: #fbbcc8,
+	darker: #e9122f,
+	200: #f01e46,
+	// For slide toggle,
+	contrast:
+		(
+			main: $light-primary-text,
+			lighter: $dark-primary-text,
+			darker: $light-primary-text,
+		),
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$light-primary: mat.define-palette($mat-primary, main, lighter, darker);
+$light-accent: mat.define-palette($mat-accent, main, lighter, darker);
+// The warn palette is optional (defaults to red).
+$light-warn: mat.define-palette($mat-warn, main, lighter, darker);
+
+// Define an alternate dark theme.
+$dark-primary-base: (
+	main: #600000,
+	lighter: #cfb3b3,
+	darker: #400,
+	200: #600000,
+	contrast: (
+		main: $light-primary-text,
+		lighter: $dark-primary-text,
+		darker: $light-primary-text,
+	),
+);
+$dark-accent-base: (
+	main: #e08119,
+	lighter: #f6d9ba,
+	darker: #d3640e,
+	200: #e08119,
+	contrast: (
+		main: $light-primary-text,
+		lighter: $dark-primary-text,
+		darker: $light-primary-text,
+	),
+);
+
+$dark-primary: mat.define-palette($dark-primary-base, main, lighter, darker);
+$dark-accent: mat.define-palette($dark-accent-base, main, lighter, darker);
+$dark-warn: mat.define-palette(mat.$deep-orange-palette);

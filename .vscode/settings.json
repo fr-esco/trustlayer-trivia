@@ -1,0 +1,46 @@
+{
+	"editor.formatOnSave": true,
+	"eslint.lintTask.enable": true,
+	"eslint.format.enable": true,
+	"eslint.packageManager": "yarn",
+	"eslint.run": "onSave",
+	"files.exclude": {
+		"**/.DS_Store": true,
+		"**/.git": true,
+		"**/*.js": {
+			"when": "$(basename).ts"
+		},
+		"**/*.js.map": {
+			"when": "$(basename)"
+		},
+		"**/functions": true,
+		"**/rules": true
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"typescriptHero.imports.organizeOnSave": true,
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#ab307e",
+		"activityBar.activeBorder": "#25320e",
+		"activityBar.background": "#ab307e",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#25320e",
+		"activityBarBadge.foreground": "#e7e7e7",
+		"statusBar.background": "#832561",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#ab307e",
+		"titleBar.activeBackground": "#832561",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#83256199",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#832561",
+}
