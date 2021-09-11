@@ -2112,17 +2112,17 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
-"@ngneat/reactive-forms@^1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@ngneat/reactive-forms/-/reactive-forms-1.7.4.tgz#586710b3c552d58f5b6bb3722395ffd096e68ed2"
-  integrity sha512-cu8Up4CeP6fHUoVIXKEUqot5ucqw2Jzp0RiSrnKL23ZDZm/mRIIFPv6y3ex0Hfh/fVcL0YnLN22vkOqQ/cVyBw==
-  dependencies:
-    tslib "^2.0.0"
-
 "@ngneat/tailwind@^7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@ngneat/tailwind/-/tailwind-7.0.3.tgz#fff7edff35642b249d8711a9b10d5753216dd4a9"
   integrity sha512-o9quceIAomYD+P/40tJ1n1G/CkWcAa1dWW5/acCz4qnS7ajhGsBoSD4N+usi+vqdoEJnunCsoEBWL9OMsSwcFA==
+
+"@ngneat/until-destroy@^8.1.4":
+  version "8.1.4"
+  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-8.1.4.tgz#00be5396f4c1417987d09aff227c15031f5473a8"
+  integrity sha512-Bk+jS0ZyCKvW2wLJPMJ8jr6lhYlDVVbE2/WbQ5L3eBcwmem82649o6s7G68tDNA+5UeHtfW7fbpK4Bhj8r+B9g==
+  dependencies:
+    tslib "^2.2.0"
 
 "@ngtools/webpack@12.2.5":
   version "12.2.5"

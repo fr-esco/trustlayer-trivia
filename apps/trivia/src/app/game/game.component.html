@@ -3,5 +3,52 @@
 </mat-toolbar>
 
 <section class="page">
-	<p>game works!</p>
+	<ng-container *ngIf="questions$ | async as questions">
+		<form
+			[formGroup]="formGroup"
+			*ngIf="formGroup"
+		>
+			<mat-stepper
+				formArrayName="questions"
+				labelPosition="bottom"
+				linear
+				#stepper
+			>
+				<mat-step
+					*ngFor="let question of questions, let i = index; let first = first; let last = last;"
+					[formGroupName]="i"
+					[stepControl]="questionFormArray.at(i)"
+					#step
+				>
+					<small>Category: {{ question.category }} • Difficulty: {{
+						question.difficulty | titlecase }}</small>
+					<p [innerHTML]="question.question | safe:'html'"></p>
+					<!-- TODO come si fa ??? -->
+					<mat-radio-group [formControlName]="i">
+						<mat-radio-button
+							class="example-radio-button"
+							*ngFor="let answer of questions[i] | fullAnswerList"
+							[value]="answer"
+						>
+							{{ answer }}
+						</mat-radio-button>
+					</mat-radio-group>
+					<div>
+						<button
+							mat-button
+							matStepperPrevious
+							type="button"
+							*ngIf="!first"
+						>Back</button>
+						<button
+							mat-button
+							matStepperNext
+							type="button"
+							*ngIf="!last"
+						>Next</button>
+					</div>
+				</mat-step>
+			</mat-stepper>
+		</form>
+	</ng-container>
 </section>

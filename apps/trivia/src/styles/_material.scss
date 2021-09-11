@@ -1,7 +1,7 @@
-@use '~@angular/material' as mat;
+@use "~@angular/material" as mat;
 
-@use './palettes' as palettes;
-@use './typography' as typography;
+@use "./palettes" as palettes;
+@use "./typography" as typography;
 
 @include mat.core();
 
@@ -37,7 +37,9 @@ $my-dark-theme: mat.define-dark-theme(
 @include mat.input-theme($my-light-theme);
 @include mat.list-theme($my-light-theme);
 @include mat.menu-theme($my-light-theme);
+@include mat.radio-theme($my-light-theme);
 @include mat.sidenav-theme($my-light-theme);
+@include mat.stepper-theme($my-light-theme);
 @include mat.toolbar-theme($my-light-theme);
 
 .dark {
@@ -50,7 +52,9 @@ $my-dark-theme: mat.define-dark-theme(
 	@include mat.input-color($my-dark-theme);
 	@include mat.list-color($my-dark-theme);
 	@include mat.menu-color($my-dark-theme);
+	@include mat.radio-color($my-dark-theme);
 	@include mat.sidenav-color($my-dark-theme);
+	@include mat.stepper-color($my-dark-theme);
 	@include mat.toolbar-color($my-dark-theme);
 }
 
