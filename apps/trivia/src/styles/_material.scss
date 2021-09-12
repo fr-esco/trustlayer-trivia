@@ -32,11 +32,13 @@ $my-dark-theme: mat.define-dark-theme(
 
 @include mat.button-theme($my-light-theme);
 @include mat.card-theme($my-light-theme);
+@include mat.dialog-theme($my-light-theme);
 @include mat.form-field-theme($my-light-theme);
 @include mat.icon-theme($my-light-theme);
 @include mat.input-theme($my-light-theme);
 @include mat.list-theme($my-light-theme);
 @include mat.menu-theme($my-light-theme);
+@include mat.progress-spinner-theme($my-light-theme);
 @include mat.radio-theme($my-light-theme);
 @include mat.sidenav-theme($my-light-theme);
 @include mat.stepper-theme($my-light-theme);
@@ -47,11 +49,13 @@ $my-dark-theme: mat.define-dark-theme(
 
 	@include mat.button-color($my-dark-theme);
 	@include mat.card-color($my-dark-theme);
+	@include mat.dialog-color($my-dark-theme);
 	@include mat.form-field-color($my-dark-theme);
 	@include mat.icon-color($my-dark-theme);
 	@include mat.input-color($my-dark-theme);
 	@include mat.list-color($my-dark-theme);
 	@include mat.menu-color($my-dark-theme);
+	@include mat.progress-spinner-color($my-dark-theme);
 	@include mat.radio-color($my-dark-theme);
 	@include mat.sidenav-color($my-dark-theme);
 	@include mat.stepper-color($my-dark-theme);

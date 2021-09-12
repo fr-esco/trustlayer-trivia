@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Registration</h2>
+<mat-dialog-content>
+	<form
+		id="user-registration-form"
+		[formGroup]="form"
+		(ngSubmit)="registerUser()"
+	>
+		<div class="my-2">
+			<mat-form-field>
+				<mat-label>Username</mat-label>
+				<input
+					matInput
+					required
+					formControlName="username"
+				>
+				<mat-error *ngIf="form.get('username')?.hasError('required')">
+					Enter a username
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="my-2">
+			<mat-form-field>
+				<mat-label>Password</mat-label>
+				<input
+					matInput
+					required
+					formControlName="password"
+					type="password"
+				>
+				<mat-error *ngIf="form.get('password')?.hasError('required')">
+					Enter a password
+				</mat-error>
+			</mat-form-field>
+		</div>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button
+		mat-button
+		mat-dialog-close
+	>Cancel</button>
+	<tlt-spinner-button [active]="loading">
+		<button
+			mat-flat-button
+			color="primary"
+			form="user-registration-form"
+			type="submit"
+		>Register</button>
+	</tlt-spinner-button>
+</mat-dialog-actions>

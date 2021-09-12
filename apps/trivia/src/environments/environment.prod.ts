@@ -6,7 +6,8 @@ export const environment = {
 		projectId: 'trustlayer-trivia',
 		storageBucket: 'trustlayer-trivia.appspot.com',
 		messagingSenderId: '883194304390',
-		appId: '1:883194304390:web:157d89c9f2fde46aacbe07'
+		appId: '1:883194304390:web:157d89c9f2fde46aacbe07',
+		useEmulators: false,
 	},
 	feature: {
 		game: {
