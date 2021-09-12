@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -21,13 +22,23 @@ export class GameComponent implements OnInit {
 		shareReplay(1)
 	);
 
+	readonly stepperOrientation$ = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(
+			map(({ matches }) => matches ? 'vertical' : 'horizontal')
+		);
+
+	answerCount = 0;
 	readonly correctFeedbackList: boolean[] = [];
 	formGroup?: FormGroup;
+	readonly questionCount = environment.feature.game.questionCount;
 	get questionFormArray() {
 		return this.formGroup?.get('questions') as FormArray;
 	}
+	score = 0;
 
 	constructor(
+		private readonly breakpointObserver: BreakpointObserver,
 		private readonly cdr: ChangeDetectorRef,
 		private readonly domSanitizer: DomSanitizer,
 		private readonly fb: FormBuilder,
@@ -59,7 +70,11 @@ export class GameComponent implements OnInit {
 				map(v => this.domSanitizer.sanitize(SecurityContext.HTML, v))
 			)
 			.subscribe(v => {
+				this.answerCount++;
 				this.correctFeedbackList[index] = v === question.correct_answer;
+				this.score += this.correctFeedbackList[index]
+					? this.gameService.getRightAnswerScore(question)
+					: 0;
 				if (environment.production)
 					formControl.disable();
 				this.cdr.markForCheck();

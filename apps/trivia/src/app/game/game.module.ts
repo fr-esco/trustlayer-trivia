@@ -1,8 +1,10 @@
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,6 +26,7 @@ import { GameService } from './game.service';
 		HttpClientModule,
 		ReactiveFormsModule,
 		MatButtonModule,
+		MatIconModule,
 		MatRadioModule,
 		MatStepperModule,
 		MatToolbarModule,
@@ -32,6 +35,10 @@ import { GameService } from './game.service';
 		GameRoutingModule
 	],
 	providers: [
+		{
+			provide: STEPPER_GLOBAL_OPTIONS,
+			useValue: { displayDefaultIndicatorType: false }
+		},
 		GameService,
 	]
 })

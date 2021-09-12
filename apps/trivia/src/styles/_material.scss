@@ -57,7 +57,3 @@ $my-dark-theme: mat.define-dark-theme(
 	@include mat.stepper-color($my-dark-theme);
 	@include mat.toolbar-color($my-dark-theme);
 }
-
-.mat-card-image {
-	max-width: initial;
-}

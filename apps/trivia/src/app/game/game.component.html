@@ -12,18 +12,20 @@
 				formArrayName="questions"
 				labelPosition="bottom"
 				linear
-				#stepper
+				[orientation]="(stepperOrientation$ | async)!"
 			>
+				>
 				<mat-step
 					*ngFor="let question of questions, let i = index; let first = first; let last = last;"
 					[formGroupName]="i"
 					[stepControl]="questionFormArray | formControlAt:i"
 					#step
+					state="question"
 				>
+					<ng-template matStepLabel>Question {{ i+1 }}</ng-template>
 					<small>Category: {{ question.category }} • Difficulty: {{
 						question.difficulty | titlecase }}</small>
 					<p [innerHTML]="question.question | safe:'html'"></p>
-					<!-- TODO come si fa ??? -->
 					<mat-radio-group [formControl]="questionFormArray | formControlAt:i">
 						<mat-radio-button
 							class="answer my-4"
@@ -59,9 +61,35 @@
 						>Next</button>
 					</div>
 				</mat-step>
-				<mat-step label="Final Score">
-					<p>SCORE</p>
+				<mat-step
+					state="star"
+					[editable]="false"
+				>
+					<ng-template matStepLabel>
+						Answers: {{ answerCount }} / {{ questionCount }}
+						<br>
+						Score: {{ score }}
+					</ng-template>
+					<div class="text-center">
+						<p class="text-4xl">Game Over</p>
+						<p class="text-2xl">
+							Final Score
+							<br>
+							<span
+								class="text-8xl font-bold dark:text-green-400 text-green-700"
+							>
+								{{ score }}
+							</span>
+						</p>
+					</div>
 				</mat-step>
+
+				<ng-template matStepperIcon="question">
+					<mat-icon>question_answer</mat-icon>
+				</ng-template>
+				<ng-template matStepperIcon="star">
+					<mat-icon>star_rate</mat-icon>
+				</ng-template>
 			</mat-stepper>
 		</form>
 	</ng-container>
