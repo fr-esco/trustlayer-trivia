@@ -13,6 +13,11 @@ export const environment = {
 		storageBucket: 'trustlayer-trivia.appspot.com',
 		messagingSenderId: '883194304390',
 		appId: '1:883194304390:web:157d89c9f2fde46aacbe07'
+	},
+	feature: {
+		game: {
+			questionCount: 3
+		}
 	}
 };
 

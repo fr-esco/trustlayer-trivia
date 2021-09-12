@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NGXLogger } from 'ngx-logger';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { GameQuestion } from './game.model';
 import { GameService } from './game.service';
 
@@ -19,6 +21,7 @@ export class GameComponent implements OnInit {
 		shareReplay(1)
 	);
 
+	readonly correctFeedbackList: boolean[] = [];
 	formGroup?: FormGroup;
 	get questionFormArray() {
 		return this.formGroup?.get('questions') as FormArray;
@@ -26,6 +29,7 @@ export class GameComponent implements OnInit {
 
 	constructor(
 		private readonly cdr: ChangeDetectorRef,
+		private readonly domSanitizer: DomSanitizer,
 		private readonly fb: FormBuilder,
 		private readonly gameService: GameService,
 		private readonly logger: NGXLogger,
@@ -36,20 +40,32 @@ export class GameComponent implements OnInit {
 		this.questions$.pipe(
 			map(questions => {
 
-				return this.fb.array(questions.map(q => this.createQuestionFormControl(q)));
+				return this.fb.array(questions.map((q, i) => this.createQuestionFormControl(q, i)));
 			}),
 			untilDestroyed(this),
 		).subscribe(questionFormArray => {
 			this.formGroup = this.fb.group({
 				questions: questionFormArray
 			});
-			this.formGroup.valueChanges.subscribe(v => this.logger.debug(v));
 			this.cdr.markForCheck();
 		})
 	}
 
-	private createQuestionFormControl(_question: GameQuestion) {
-		return this.fb.control(null, Validators.required);
+	private createQuestionFormControl(question: GameQuestion, index: number) {
+		const formControl = this.fb.control(null, Validators.required);
+		formControl.valueChanges
+			.pipe(
+				// first(x => !!x)
+				map(v => this.domSanitizer.sanitize(SecurityContext.HTML, v))
+			)
+			.subscribe(v => {
+				this.correctFeedbackList[index] = v === question.correct_answer;
+				if (environment.production)
+					formControl.disable();
+				this.cdr.markForCheck();
+			});
+
+		return formControl;
 	}
 
 }

@@ -17,36 +17,50 @@
 				<mat-step
 					*ngFor="let question of questions, let i = index; let first = first; let last = last;"
 					[formGroupName]="i"
-					[stepControl]="questionFormArray.at(i)"
+					[stepControl]="questionFormArray | formControlAt:i"
 					#step
 				>
 					<small>Category: {{ question.category }} • Difficulty: {{
 						question.difficulty | titlecase }}</small>
 					<p [innerHTML]="question.question | safe:'html'"></p>
 					<!-- TODO come si fa ??? -->
-					<mat-radio-group [formControlName]="i">
+					<mat-radio-group [formControl]="questionFormArray | formControlAt:i">
 						<mat-radio-button
-							class="example-radio-button"
+							class="answer my-4"
 							*ngFor="let answer of questions[i] | fullAnswerList"
-							[value]="answer"
+							[value]="answer | safe:'html'"
 						>
-							{{ answer }}
+							<span [innerHTML]="answer | safe:'html'"></span>
 						</mat-radio-button>
 					</mat-radio-group>
+					<div
+						class="feedback-container my-4 p-2 border-2 border-dotted"
+						[class.border-green-500]="correctFeedbackList[i]"
+						[class.border-red-500]="!correctFeedbackList[i]"
+						[style.visibility]="(questionFormArray | formControlAt:i).value ? 'visible' : 'hidden'"
+					>
+						{{ correctFeedbackList[i] ? '✔ Correct' : '❌ Wrong' }} answer.
+					</div>
 					<div>
 						<button
-							mat-button
+							class="previous-button"
+							mat-stroked-button
 							matStepperPrevious
 							type="button"
 							*ngIf="!first"
 						>Back</button>
 						<button
-							mat-button
+							class="next-button"
+							[disabled]="(questionFormArray | formControlAt:i).invalid"
+							mat-raised-button
 							matStepperNext
+							color="primary"
 							type="button"
-							*ngIf="!last"
 						>Next</button>
 					</div>
+				</mat-step>
+				<mat-step label="Final Score">
+					<p>SCORE</p>
 				</mat-step>
 			</mat-stepper>
 		</form>
