@@ -12,10 +12,12 @@
 			<a
 				mat-list-item
 				[routerLink]="['/', 'main', 'play']"
+				(click)="closeOnClick(drawer)"
 			>Play</a>
 			<a
 				mat-list-item
 				[routerLink]="['/', 'main', 'leaderboard']"
+				(click)="closeOnClick(drawer)"
 			>Leaderboard</a>
 		</mat-nav-list>
 	</mat-sidenav>
@@ -63,7 +65,7 @@
 
 		</mat-toolbar>
 		<!-- Add Content Here -->
-		<div style="height: 64px;"></div>
+		<div class="mat-toolbar-single-row"></div>
 		<ng-content></ng-content>
 	</mat-sidenav-content>
 </mat-sidenav-container>

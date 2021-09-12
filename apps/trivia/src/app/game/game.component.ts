@@ -1,8 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit, SecurityContext } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NGXLogger } from 'ngx-logger';
 import { first, map, shareReplay } from 'rxjs/operators';
@@ -47,6 +49,9 @@ export class GameComponent implements OnInit {
 		private readonly fb: FormBuilder,
 		private readonly gameService: GameService,
 		private readonly logger: NGXLogger,
+		private readonly router: Router,
+		private readonly snackbar: MatSnackBar,
+		private readonly zone: NgZone,
 	) { }
 
 	ngOnInit(): void {
@@ -68,8 +73,14 @@ export class GameComponent implements OnInit {
 	saveScore() {
 		this.logger.info('GameComponent', 'User wants to save their score', this.score);
 		this.dialog.open(UserRegistrationDialogComponent).afterClosed()
-			.subscribe(userId => {
-				this.logger.debug('GameComponent', 'Saving score for user', userId)
+			.subscribe(async ({ userId, userDisplayName }) => {
+				this.logger.debug('GameComponent', 'Saving score for user', userId);
+
+				await this.gameService.saveScore(this.score, userId, userDisplayName);
+				this.logger.info('GameComponent', 'Score for user saved', userId);
+
+				this.snackbar.open('Score saved', undefined, { duration: 3_000 });
+				this.zone.run(() => this.router.navigate(['/', 'main', 'leaderboard']));
 			})
 	}
 

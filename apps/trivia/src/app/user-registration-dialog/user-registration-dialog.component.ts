@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { addDoc, collection, doc, Firestore, query } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -23,10 +23,14 @@ export class UserRegistrationDialogComponent {
 
 	constructor(
 		private readonly cdr: ChangeDetectorRef,
-		private readonly dialogRef: MatDialogRef<UserRegistrationDialogComponent, string>,
+		private readonly dialogRef: MatDialogRef<UserRegistrationDialogComponent, {
+			userId: string;
+			userDisplayName: string;
+		}>,
 		private readonly fb: FormBuilder,
 		private readonly firestore: Firestore,
 		private readonly logger: NGXLogger,
+		private readonly zone: NgZone,
 	) { }
 
 	registerUser() {
@@ -63,7 +67,7 @@ export class UserRegistrationDialogComponent {
 			}),
 		).subscribe(userId => {
 			this.logger.info('UserRegistrationDialogComponent', 'User identified', userId);
-			this.dialogRef.close(userId);
+			this.zone.run(() => this.dialogRef.close({ userId, userDisplayName: username }));
 		});
 
 	}

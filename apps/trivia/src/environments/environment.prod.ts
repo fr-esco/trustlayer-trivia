@@ -12,6 +12,9 @@ export const environment = {
 	feature: {
 		game: {
 			questionCount: 10
+		},
+		score: {
+			leaderboardStatMaxQuantity: 10
 		}
 	}
 };
