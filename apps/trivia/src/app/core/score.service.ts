@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, doc, docData, Firestore, runTransaction, Timestamp } from '@angular/fire/firestore';
+import { collection, doc, docData, Firestore, runTransaction, Timestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -35,7 +35,6 @@ export class ScoreService {
 			score,
 			userId,
 		}
-		await addDoc(scoresCollection, newScoreDoc);
 
 		return runTransaction(this.firestore, async t => {
 			const leaderboard = await t.get(this.#leaderboardRef);
@@ -60,6 +59,8 @@ export class ScoreService {
 			if (stats.length > environment.feature.score.leaderboardStatMaxQuantity) {
 				stats.pop();
 			}
+
+			t.set(doc(scoresCollection), newScoreDoc);
 
 			return t.set(this.#leaderboardRef, { stats });
 		})

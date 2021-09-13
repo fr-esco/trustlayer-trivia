@@ -1,17 +1,5 @@
 @import "./variables";
 
-.form-width {
-	margin: 0 2 * $u;
-	width: calc(100% - #{4 * $u});
-}
-
-// .page-padding {
-// padding: $u 2 * $u;
-
-// @media (min-width: 600px) {
-//   padding: 2 * $u 3 * $u;
-// }
-// }
 @layer components {
 	.page {
 		@apply py-2 sm:py-4 px-4 sm:px-6;

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
-import { map, tap } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
 import { ScoreService } from '../core/score.service';
 
@@ -13,8 +13,9 @@ import { ScoreService } from '../core/score.service';
 export class LeaderboardComponent implements OnInit {
 	displayedColumns?: string[];
 	readonly stats$ = this.scoreService.leaderboard$.pipe(
-		map(leaderboard => leaderboard.stats || []),
-		tap(stats => this.displayedColumns = stats.length ? ['position', 'userDisplayName', 'score', 'createdAt'] : undefined)
+		map(leaderboard => leaderboard?.stats || []),
+		tap(stats => this.displayedColumns = stats.length ? ['position', 'userDisplayName', 'score', 'createdAt'] : undefined),
+		shareReplay(1)
 	);
 
 	constructor(

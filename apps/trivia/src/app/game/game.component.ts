@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NGXLogger } from 'ngx-logger';
-import { first, map, shareReplay } from 'rxjs/operators';
+import { filter, first, map, shareReplay } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { UserRegistrationDialogComponent } from '../user-registration-dialog/user-registration-dialog.component';
@@ -57,10 +57,9 @@ export class GameComponent implements OnInit {
 	ngOnInit(): void {
 		this.logger.debug('GameComponent::ngOnInit');
 		this.questions$.pipe(
-			map(questions => {
-
-				return this.fb.array(questions.map((q, i) => this.createQuestionFormControl(q, i)));
-			}),
+			map(questions => this.fb.array(
+				questions.map((q, i) => this.createQuestionFormControl(q, i))
+			)),
 			untilDestroyed(this),
 		).subscribe(questionFormArray => {
 			this.formGroup = this.fb.group({
@@ -73,6 +72,7 @@ export class GameComponent implements OnInit {
 	saveScore() {
 		this.logger.info('GameComponent', 'User wants to save their score', this.score);
 		this.dialog.open(UserRegistrationDialogComponent).afterClosed()
+			.pipe(filter(x => !!x))
 			.subscribe(async ({ userId, userDisplayName }) => {
 				this.logger.debug('GameComponent', 'Saving score for user', userId);
 

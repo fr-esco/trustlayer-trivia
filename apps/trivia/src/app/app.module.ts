@@ -52,7 +52,7 @@ export class AppModule {
 }
 
 function resolvePersistenceEnabled(enabled: boolean) {
-	console.info('Persistence Enabled', enabled);
+	// console.info('Persistence Enabled', enabled);
 
 	return enabled;
 }
