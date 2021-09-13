@@ -23,7 +23,7 @@
 					#step
 					state="question"
 				>
-					<ng-template matStepLabel>Question {{ i+1 }}</ng-template>
+					<ng-template matStepLabel>Question<br>#{{ i+1 }}</ng-template>
 					<small>Category: {{ question.category }} • Difficulty: {{
 						question.difficulty | titlecase }}</small>
 					<p [innerHTML]="question.question | safe:'html'"></p>
@@ -60,6 +60,10 @@
 							color="primary"
 							type="button"
 						>Next</button>
+						<span>
+							Answers: {{ answerCount }} / {{ questionCount }}
+							• Score: {{ score }}
+						</span>
 					</div>
 				</mat-step>
 				<mat-step
@@ -67,9 +71,7 @@
 					[editable]="false"
 				>
 					<ng-template matStepLabel>
-						Answers: {{ answerCount }} / {{ questionCount }}
-						<br>
-						Score: {{ score }}
+						{{ score }} 🌟
 					</ng-template>
 					<div class="text-center">
 						<p class="text-4xl">Game Over</p>

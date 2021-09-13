@@ -1,20 +1,7 @@
 {
 	"hosting": [
 		{
-			"public": "public",
-			"ignore": [
-				"firebase.json",
-				"**/.*",
-				"**/node_modules/**"
-			],
-			"rewrites": [
-				{
-					"source": "**",
-					"destination": "/index.html"
-				}
-			]
-		},
-		{
+			"site": "trustlayer-trivia",
 			"public": "dist/apps/trivia",
 			"ignore": [
 				"firebase.json",
